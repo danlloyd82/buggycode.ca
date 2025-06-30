@@ -53,7 +53,7 @@ function spawnBug() {
 // Remove per-bug mouseenter/mouseleave cursor logic to avoid conflicts with global handler
 bug.addEventListener('mouseenter', () => {});
 bug.addEventListener('mouseleave', () => {});
-    bug.addEventListener('mousedown', (e) => {
+    function swatBug(e) {
         if (!bugObj.alive) return;
         bugObj.alive = false;
         // Shrink swatter cursor for 100ms before splat (less shrink)
@@ -67,7 +67,14 @@ bug.addEventListener('mouseleave', () => {});
             // Remove dead bug from array
             bugs = bugs.filter(b => b !== bugObj);
         }, 100);
-    });
+        // Prevent scrolling on touch
+        if (e && e.type && e.type.startsWith('touch')) {
+            e.preventDefault();
+        }
+    }
+    bug.addEventListener('mousedown', swatBug);
+    // Touch support: tap to swat
+    bug.addEventListener('touchstart', swatBug, { passive: false });
 }
 
 function showSplat(x, y, angleDeg = 0) {
@@ -154,9 +161,41 @@ window.addEventListener('mousemove', (e) => {
     }
 });
 
+// Touch support: swat when tapping near a bug (not just on the bug)
 window.addEventListener('mousedown', (e) => {
     // If not on a bug, show a swat animation? (optional)
 });
+
+window.addEventListener('touchstart', (e) => {
+    // Find the first touch point
+    const touch = e.touches[0];
+    if (!touch) return;
+    // Find the closest alive bug within 50px
+    let minDist = Infinity;
+    let closestBug = null;
+    for (const bug of bugs) {
+        if (!bug.alive) continue;
+        const bx = bug.x + 16, by = bug.y + 16;
+        const dist = Math.hypot(touch.clientX - bx, touch.clientY - by);
+        if (dist < minDist) {
+            minDist = dist;
+            closestBug = bug;
+        }
+    }
+    if (closestBug && minDist < 50) {
+        // Simulate swat on the bug
+        if (typeof closestBug.el.swatBug === 'function') {
+            closestBug.el.swatBug(e);
+        } else {
+            // fallback: dispatch mousedown
+            closestBug.el.dispatchEvent(new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            }));
+        }
+        e.preventDefault();
+    }
+}, { passive: false });
 
 window.addEventListener('resize', () => {
     // Keep bugs in bounds
@@ -168,5 +207,27 @@ window.addEventListener('resize', () => {
     }
 });
 
+// Patch: Expose swatBug for touch global handler
+// (attach to bug element for access in touchstart)
+for (const bug of bugs) {
+    if (bug.el && typeof bug.el.swatBug !== 'function') {
+        bug.el.swatBug = function(e) {
+            if (!bug.alive) return;
+            bug.alive = false;
+            const shrinkCursor = `<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g transform="scale(0.85,0.6) translate(2.4,4)">${swatterSVG.replace(/^[^>]+>|<\/svg>$/g, '')}</g></svg>`;
+            document.body.style.cursor = `url('data:image/svg+xml;utf8,${encodeURIComponent(shrinkCursor)}') 16 16, pointer`;
+            setTimeout(() => {
+                bug.el.style.display = 'none';
+                showSplat(bug.x, bug.y, bug.angleDeg);
+                bugsSwatted++;
+                bugCounter.textContent = bugsSwatted;
+                bugs = bugs.filter(b => b !== bug);
+            }, 100);
+            if (e && e.type && e.type.startsWith('touch')) {
+                e.preventDefault();
+            }
+        };
+    }
+}
 spawnLoop();
 animate();
