@@ -1,8 +1,42 @@
 <html>
     <head>
         <title>Portfolio</title>
+    <style>
+        body {
+            background: #0a1817;
+            margin: 0;
+            overflow: hidden;
+        }
+        #bug-counter {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 2em;
+            z-index: 1000;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .bug {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            pointer-events: auto;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+        .splat {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            z-index: 20;
+            pointer-events: none;
+        }
+    </style>
+    <script type="module" src="bug_logic.js"></script>
     </head>
-    <body bgcolor="#0a1817">
+    <body>
+        <div id="bug-counter">0</div>
         <center>
         <div>
             <img src="gwyneth-balucio-hello-world-mod.gif" width="50%">
