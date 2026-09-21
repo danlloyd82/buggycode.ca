@@ -1,0 +1,45 @@
+:root {
+    color-scheme: dark;
+
+    /* Ground. Sampled from the games' own backgrounds. */
+    --ground: #0b0b0d;
+    --shell: #141419;
+    --shell-hi: #1c1c23;
+    --edge: #2a2a33;
+    --edge-hi: #3d3d49;
+
+    /* Ink */
+    --ink: #eceff3;
+    --ink-dim: #98a2ad;
+    --ink-faint: #7f8a97;
+
+    /* Polarity. Node Buster's actual packet colours, taken from its
+       own stylesheet rather than invented for this page. */
+    --cyan: #00e5ff;
+    --magenta: #ff2d78;
+    --gold: #ffc61a;
+
+    /* Space. 1 / 4 / 9 rhythm, extended: everything is a multiple. */
+    --s1: 0.25rem;   /*  4px */
+    --s2: 1rem;      /* 16px */
+    --s3: 2.25rem;   /* 36px */
+    --s4: 4rem;      /* 64px */
+    --s5: 6.5rem;    /* 104px */
+
+    --container: 1120px;
+    --measure: 64ch;
+
+    --r1: 3px;
+    --r2: 7px;
+    --r3: 12px;
+    --r4: 20px;
+    --r5: 34px;
+
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-lcd: 'Silkscreen', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --layer-bugs: 40;
+    --layer-chrome: 50;
+}

@@ -1,0 +1,49 @@
+---
+import { projects } from '../data/projects';
+import Cartridge from './Cartridge.astro';
+---
+
+<section class="shelf-section" id="shelf">
+    <div class="wrap">
+        <!-- Kept for assistive tech only: the shelf reads as the hero's payload,
+             but the skip link still needs a labelled target and the heading
+             order needs its h1 -> h2 -> h3 step. -->
+        <h2 class="visually-hidden">Projects</h2>
+
+        <div class="shelf">
+            {projects.map((project) => <Cartridge project={project} />)}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Top padding is deliberately tighter than the other sections: the shelf
+       is the hero's payload, not a separate chapter, and the gap here was
+       sized for a button that no longer exists. */
+    .shelf-section {
+        padding-block: var(--s3) 0;
+    }
+
+    @media (min-width: 768px) {
+        .shelf-section {
+            padding-block: var(--s4) 0;
+        }
+    }
+
+    .shelf {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--s3);
+        /* The shelf edge the cartridges stand on. */
+        border-bottom: 2px solid var(--edge);
+        padding-bottom: var(--s2);
+    }
+
+    @media (min-width: 1000px) {
+        .shelf {
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--s2);
+            align-items: stretch;
+        }
+    }
+</style>

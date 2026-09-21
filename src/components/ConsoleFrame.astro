@@ -1,0 +1,158 @@
+---
+interface Props {
+    /** Where the wordmark points. Defaults to the home page's top anchor. */
+    homeHref?: string;
+}
+
+const { homeHref = '#top' } = Astro.props;
+---
+
+<header class="chrome">
+    <div class="chrome-inner wrap">
+        <a class="wordmark" href={homeHref}>
+            <span class="led" aria-hidden="true"></span>
+            <span class="wordmark-text">buggycode</span>
+        </a>
+
+        <button class="switch" id="bugs-toggle" type="button" aria-pressed="true" data-state="on">
+            <span class="lcd switch-name">Bugs</span>
+            <span class="switch-track" aria-hidden="true">
+                <span class="switch-knob"></span>
+            </span>
+        </button>
+
+        <p class="stat">
+            <span class="lcd stat-label">Squashed</span>
+            <span class="lcd stat-value" id="squash-count">000</span>
+        </p>
+    </div>
+</header>
+
+<style>
+    .chrome {
+        position: sticky;
+        top: 0;
+        z-index: var(--layer-chrome);
+        background: var(--ground);
+        border-bottom: 1px solid var(--edge);
+    }
+
+    .chrome-inner {
+        display: flex;
+        align-items: center;
+        gap: var(--s3);
+        min-height: 60px;
+    }
+
+    .wordmark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        /* Pads the tap target out to 44px without moving the layout. */
+        padding-block: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        font-size: 1.0625rem;
+    }
+
+    .led {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--cyan);
+        box-shadow: 0 0 10px var(--cyan);
+    }
+
+    .stat {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .stat-label {
+        color: var(--ink-faint);
+    }
+
+    .stat-value {
+        color: var(--ink);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 44px;
+        padding: 0 var(--s1);
+        background: none;
+        border: 0;
+        color: var(--ink-dim);
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .switch-name {
+        color: var(--ink-faint);
+    }
+
+    .switch-track {
+        position: relative;
+        width: 42px;
+        height: 22px;
+        border: 1px solid var(--edge-hi);
+        border-radius: 999px;
+        background: var(--shell);
+        transition: border-color 0.2s var(--ease-out);
+    }
+
+    .switch-knob {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--ink-faint);
+        transition:
+            transform 0.2s var(--ease-out),
+            background-color 0.2s var(--ease-out);
+    }
+
+    .switch[data-state='on'] .switch-track {
+        border-color: var(--cyan);
+    }
+
+    .switch[data-state='on'] .switch-knob {
+        transform: translateX(20px);
+        background: var(--cyan);
+    }
+
+    .switch:hover .switch-name {
+        color: var(--ink);
+    }
+
+    .switch:hover .switch-track {
+        border-color: var(--ink-faint);
+    }
+
+    /* Narrow screens: let the readout drop to its own row rather than lose
+       its label. An unlabelled "000" reads as three dots, not a score. */
+    @media (max-width: 620px) {
+        .chrome-inner {
+            flex-wrap: wrap;
+            gap: var(--s2);
+            row-gap: 0;
+            padding-block: 8px;
+        }
+
+        .stat {
+            order: 3;
+            flex-basis: 100%;
+            padding-top: 6px;
+            border-top: 1px solid var(--edge);
+        }
+    }
+</style>

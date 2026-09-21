@@ -1,0 +1,154 @@
+---
+// The ambient layer. Purely decorative, so it is hidden from assistive tech;
+// the BUGS toggle in the chrome is the accessible control for it.
+---
+
+<div id="bug-field" class="bug-field" aria-hidden="true"></div>
+
+<script>
+    import '../scripts/ambient.js';
+</script>
+
+<style>
+    .bug-field {
+        position: fixed;
+        inset: 0;
+        z-index: var(--layer-bugs);
+        /* The layer never takes clicks. Bugs are hit-tested in script instead,
+           so a bug sitting on a link can never swallow it. */
+        pointer-events: none;
+        contain: layout paint;
+    }
+
+    .bug-field[hidden] {
+        display: none;
+    }
+
+    :global(.bug-field .bug) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        will-change: transform;
+    }
+
+    :global(.bug-field .bug > svg) {
+        display: block;
+    }
+
+    /* Bugs wear the same three polarities as the cartridges. The default
+       below is cyan so a bug is never left uncoloured, and each swarm
+       member picks one at spawn. */
+    :global(.bug-field .bug),
+    :global(.bug-field .splat) {
+        --bug-line: #06333c;
+        --bug-body: #12a7bd;
+        --bug-head: #00e5ff;
+    }
+
+    :global(.bug-field [data-polarity='cyan']) {
+        --bug-line: #06333c;
+        --bug-body: #12a7bd;
+        --bug-head: #00e5ff;
+    }
+
+    :global(.bug-field [data-polarity='magenta']) {
+        --bug-line: #4a0b28;
+        --bug-body: #c22160;
+        --bug-head: #ff2d78;
+    }
+
+    :global(.bug-field [data-polarity='gold']) {
+        --bug-line: #453005;
+        --bug-body: #cf9a10;
+        --bug-head: #ffc61a;
+    }
+
+    :global(.bug-field .splat) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        animation: splat-fade 1.1s ease-out forwards;
+    }
+
+    @keyframes splat-fade {
+        0% {
+            opacity: 0;
+        }
+        12% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* Walk cycle. Each leg pivots about its own hip, given as an explicit
+       transform-origin in the sprite. --gait is set per bug from its speed. */
+    :global(.bug-field .leg) {
+        transform-box: view-box;
+        animation: bug-gait-a var(--gait, 0.3s) ease-in-out infinite;
+    }
+
+    :global(.bug-field .leg-b) {
+        animation-name: bug-gait-b;
+    }
+
+    :global(.bug-field .antenna) {
+        transform-box: view-box;
+        animation: bug-antenna var(--gait, 0.3s) ease-in-out infinite;
+    }
+
+    :global(.bug-field .antenna-r) {
+        animation-direction: reverse;
+    }
+
+    :global(.bug-field .bug-body) {
+        transform-box: view-box;
+        transform-origin: 16px 17.5px;
+        animation: bug-rock var(--gait, 0.3s) ease-in-out infinite;
+    }
+
+    @keyframes bug-gait-a {
+        0%,
+        100% {
+            transform: rotate(-9deg);
+        }
+        50% {
+            transform: rotate(9deg);
+        }
+    }
+
+    @keyframes bug-gait-b {
+        0%,
+        100% {
+            transform: rotate(9deg);
+        }
+        50% {
+            transform: rotate(-9deg);
+        }
+    }
+
+    @keyframes bug-antenna {
+        0%,
+        100% {
+            transform: rotate(-5deg);
+        }
+        50% {
+            transform: rotate(5deg);
+        }
+    }
+
+    @keyframes bug-rock {
+        0%,
+        100% {
+            transform: rotate(-1.6deg);
+        }
+        50% {
+            transform: rotate(1.6deg);
+        }
+    }
+</style>

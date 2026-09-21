@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import BugField from '../components/BugField.astro';
+import ConsoleFrame from '../components/ConsoleFrame.astro';
+import Hero from '../components/Hero.astro';
+import CartridgeShelf from '../components/CartridgeShelf.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../data/site';
+---
+
+<Base
+    title="buggycode"
+    description="Games and tools by buggycode: Node Buster, a falling-block puzzle built in native code and shipped to the browser, and Plinkopolis, a crank-aimed peg game across ten districts."
+>
+    <a class="skip" href="#shelf">Skip to projects</a>
+
+    <BugField />
+    <ConsoleFrame />
+
+    <main id="main">
+        <Hero />
+        <CartridgeShelf />
+        <About />
+        <Contact />
+    </main>
+
+    <footer class="foot">
+        <div class="wrap foot-inner">
+            <p class="lcd">{site.domain}</p>
+            <p class="lcd foot-note">Bugs are loose on this page. Swat them, or switch them off up top.</p>
+        </div>
+    </footer>
+</Base>
+
+<style>
+    .skip {
+        position: absolute;
+        top: -100px;
+        left: var(--s2);
+        z-index: 100;
+        padding: 10px var(--s2);
+        background: var(--ink);
+        color: var(--ground);
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: var(--r1);
+        transition: top 0.15s var(--ease-out);
+    }
+
+    .skip:focus {
+        top: var(--s2);
+    }
+
+    .foot {
+        border-top: 1px solid var(--edge);
+        padding-block: var(--s3);
+    }
+
+    .foot-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--s2);
+        align-items: baseline;
+        justify-content: space-between;
+        color: var(--ink-faint);
+    }
+
+    .foot-note {
+        max-width: 40ch;
+    }
+</style>

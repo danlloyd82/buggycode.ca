@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+
+# Tooling state, not site content.
+.commandcode/
+
+.DS_Store
+*.log

@@ -1,0 +1,68 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section contact" id="contact">
+    <div class="wrap">
+        <h2 class="section-label lcd">Contact</h2>
+        <p class="contact-lede">
+            Email is the best way to reach me—whether you've found a loose bug on the site, want to talk shop,
+            or just have questions about my car's extended warranty.
+        </p>
+        <a class="contact-link" href={`mailto:${site.email}`}>
+            <span class="contact-action">Email me</span>
+            <span class="contact-address">{site.email}</span>
+        </a>
+    </div>
+</section>
+
+<style>
+    .contact {
+        padding-bottom: var(--s4);
+    }
+
+    .contact-lede {
+        max-width: 48ch;
+        color: var(--ink-dim);
+        margin-bottom: var(--s3);
+    }
+
+    .contact-link {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 6px;
+        min-height: 48px;
+        padding: var(--s2) var(--s3);
+        border: 1px solid var(--edge-hi);
+        border-radius: var(--r2);
+        text-decoration: none;
+        transition:
+            border-color 0.2s var(--ease-out),
+            background-color 0.2s var(--ease-out);
+    }
+
+    .contact-action {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 1.125rem;
+    }
+
+    /* An address has to be readable at a glance, so it stays in the text face
+       rather than the pixel LCD one. */
+    .contact-address {
+        font-family: var(--font-display);
+        font-size: 0.9375rem;
+        letter-spacing: normal;
+        text-transform: none;
+        color: var(--ink-faint);
+    }
+
+    .contact-link:hover {
+        border-color: var(--ink);
+        background: var(--shell);
+    }
+
+    .contact-link:hover .contact-address {
+        color: var(--ink-dim);
+    }
+</style>

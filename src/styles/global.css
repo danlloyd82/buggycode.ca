@@ -1,0 +1,127 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+}
+
+p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+}
+
+::selection {
+    background: var(--cyan);
+    color: var(--ground);
+}
+
+:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: var(--r1);
+}
+
+/* The LCD voice: status readouts, codes, spec labels. Never body copy. */
+.lcd {
+    font-family: var(--font-lcd);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.wrap {
+    width: min(100% - (var(--s2) * 2), var(--container));
+    margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+    .wrap {
+        width: min(100% - (var(--s3) * 2), var(--container));
+    }
+}
+
+/* Sections carry a top gap only. Two adjacent sections each adding full
+   block padding was what produced the dead space between them; the last
+   section before the footer opts back into a bottom gap. */
+.section {
+    padding-block: var(--s3) 0;
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding-block: var(--s4) 0;
+    }
+}
+
+/* Section headings inherited the pixel LCD face before this rule. That face is
+   drawn on an 8px grid, so at 11px it renders at a fractional scale and every
+   glyph edge is antialiased. Same small-caps voice, legible face. */
+.section-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: var(--s2);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

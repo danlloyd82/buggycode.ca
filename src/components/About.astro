@@ -1,0 +1,72 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section" id="about">
+    <div class="wrap about">
+        <div class="about-copy">
+            <h2 class="section-label lcd">About</h2>
+            {site.about.map((paragraph) => <p class="about-p">{paragraph}</p>)}
+        </div>
+
+        <dl class="facts">
+            {
+                site.facts.map((fact) => (
+                    <div class="fact">
+                        <dt class="lcd fact-label">{fact.label}</dt>
+                        <dd class="fact-value">{fact.value}</dd>
+                    </div>
+                ))
+            }
+        </dl>
+    </div>
+</section>
+
+<style>
+    .about {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--s4);
+    }
+
+    @media (min-width: 900px) {
+        .about {
+            grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+            gap: var(--s5);
+            align-items: start;
+        }
+    }
+
+    .about-p {
+        max-width: var(--measure);
+        color: var(--ink-dim);
+    }
+
+    .about-p + .about-p {
+        margin-top: var(--s2);
+    }
+
+    .facts {
+        margin: 0;
+        border-top: 1px solid var(--edge);
+    }
+
+    .fact {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--s2);
+        padding-block: 10px;
+        border-bottom: 1px solid var(--edge);
+    }
+
+    .fact-label {
+        color: var(--ink-faint);
+    }
+
+    .fact-value {
+        margin: 0;
+        color: var(--ink);
+        font-weight: 500;
+    }
+</style>
