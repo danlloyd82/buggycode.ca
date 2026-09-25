@@ -1,72 +1,44 @@
----
-import Base from '../layouts/Base.astro';
-import BugField from '../components/BugField.astro';
-import ConsoleFrame from '../components/ConsoleFrame.astro';
-import Hero from '../components/Hero.astro';
-import CartridgeShelf from '../components/CartridgeShelf.astro';
-import About from '../components/About.astro';
-import Contact from '../components/Contact.astro';
-import { site } from '../data/site';
----
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17130f">
+<meta name="description" content="Personal games and tools I’m making for myself and my kids. Based in Mississauga, Ontario."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><title>buggycode — Personal projects</title>
+<link rel="stylesheet" href="/atari/styles.css"><link rel="stylesheet" href="/atari/bug-game.css">
+</head>
+<body>
+<a class="skip" href="#projects">Skip to projects</a>
+<div class="bug-field" id="bug-field" aria-hidden="true" hidden></div>
+<header class="topbar"><a class="brand" href="#top"><span class="brand-mark">✳</span> buggycode</a><nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a></nav><div class="top-actions"><p class="score lcd"><span>Squashed</span><strong id="squash-count">000</strong></p><button id="bug-toggle" class="bug-toggle" type="button" aria-pressed="false"><span class="toggle-mark" aria-hidden="true">▶</span><span>Bug hunt</span></button></div></header>
+<main id="top">
+<section class="hero wrap"><div class="hero-copy"><p class="eyebrow lcd">Personal projects</p><h1>Here are a few<br>buggy things.</h1><p class="intro">Lately, I’ve been tinkering with AI and working on personal projects for myself and my kids.</p></div><div class="hero-art" aria-hidden="true"><svg class="handheld-bug-logo" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="shell" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#3a3b36"/><stop offset=".55" stop-color="#171816"/><stop offset="1" stop-color="#292823"/></linearGradient><linearGradient id="screen" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#11170f"/><stop offset="1" stop-color="#050806"/></linearGradient></defs>
+<ellipse cx="180" cy="280" rx="108" ry="13" fill="#000" opacity=".38"/>
+<path d="M88 137Q88 126 102 126H258Q272 126 272 140L283 235Q285 258 264 264H96Q75 258 77 235Z" fill="url(#shell)" stroke="#ad7747" stroke-width="5"/>
+<path d="M98 141H262L270 231Q271 246 257 249H103Q89 247 90 231Z" fill="#272824" stroke="#858176" stroke-width="2"/>
+<rect x="116" y="147" width="128" height="68" rx="7" fill="url(#screen)" stroke="#aeb2ad" stroke-width="3"/>
+<path d="M128 159H232M128 201H232" stroke="#37432f" stroke-width="2" opacity=".7"/><path d="M137 177h11v11h-11zm18-8h11v11h-11zm18 13h11v11h-11zm18-11h11v11h-11zm18 15h11v11h-11z" fill="#b88948" opacity=".82"/>
+<path d="M117 233h34v8h-34zM130 220v34h8v-34z" rx="2" fill="#c2b29a"/><circle cx="220" cy="230" r="10" fill="#bd5942" stroke="#d5c2a2" stroke-width="3"/><circle cx="246" cy="242" r="8" fill="#d6a457" stroke="#d5c2a2" stroke-width="3"/>
+<g fill="none" stroke="#17130f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M163 103 143 78 135 58M197 103l21-25 8-20M151 117l-25 3-16 17M150 129l-31 15-13 17M209 117l25 3 16 17M210 129l31 15 13 17M165 140l-9 12-3 9M195 140l9 12 3 9"/></g>
+<g fill="none" stroke="#d69a54" stroke-width="4" stroke-linecap="round"><path d="m135 58-7-15m7 15 5-17M226 58l-5-17m5 17 9-13"/></g>
+<ellipse cx="180" cy="119" rx="34" ry="39" fill="#c97937" stroke="#17130f" stroke-width="6"/><path d="M180 82v72" stroke="#623a24" stroke-width="4"/><path d="M155 108q25-20 50 0" fill="#e6a455" opacity=".55"/><circle cx="180" cy="78" r="19" fill="#33302a" stroke="#17130f" stroke-width="6"/><circle cx="174" cy="77" r="3.5" fill="#f2ad60"/><circle cx="186" cy="77" r="3.5" fill="#f2ad60"/>
+<circle cx="180" cy="128" r="4" fill="#f2ad60"/><circle cx="180" cy="141" r="4" fill="#f2ad60"/>
+<path d="M91 136h17M252 136h17" stroke="#d7aa72" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="257" r="3" fill="#d3c7b6"/><circle cx="256" cy="257" r="3" fill="#d3c7b6"/>
+</svg><span class="art-caption lcd">Mostly harmless</span></div></section>
 
-<Base
-    title="buggycode"
-    description="Games and tools by buggycode: Node Buster, a falling-block puzzle built in native code and shipped to the browser, and Plinkopolis, a crank-aimed peg game across ten districts."
->
-    <a class="skip" href="#shelf">Skip to projects</a>
 
-    <BugField />
-    <ConsoleFrame />
+<section class="projects-section wrap" id="projects" aria-labelledby="project-title"><div class="section-heading"><div><p class="eyebrow lcd">Current projects</p><h2 id="project-title">Pick a cartridge.</h2></div><span class="project-count lcd">02 PLAYABLE · 01 IN PROGRESS</span></div>
+<div class="cartridge-rack">
+<article class="cart-unit"><button class="cartridge" type="button" data-code="NB—01" data-title="Node Buster" data-status="PLAYABLE" data-tagline="Polarize. Match. Overload." data-description="A falling-block puzzle where colour clears the board and polarity pulls off satisfying chain reactions. Built for a retro handheld, then brought to the browser." data-screen="/carts/nb-01.png" data-screen-alt="Node Buster running on its handheld shell" data-action="Play Node Buster" data-url="https://game.buggycode.ca"><span class="cart-cap"><span class="lcd">GAME CARD</span><span class="cart-dot"></span></span><span class="cart-art"><img src="/carts/nb-01.png" alt=""><span class="cart-art-shade"></span><span class="cart-label"><strong>Node<br>Buster</strong><small class="lcd">NB—01 · PUZZLE</small></span></span><span class="cart-base"><span class="cart-grip"></span><span class="cart-teeth" aria-hidden="true">▥</span></span></button><p class="cart-caption lcd">NODE BUSTER · PLAYABLE</p><p class="cart-hint">Select to load</p></article>
+<article class="cart-unit"><button class="cartridge" type="button" data-code="PLNK—02" data-title="Plinkopolis" data-status="PLAYABLE" data-tagline="Ten districts, one night." data-description="A pachinko-flavoured peg game with a crank instead of a mouse. Ten districts, one city after dark, and a portrait playfield made for the mood." data-screen="/carts/plnk-02.jpg" data-screen-alt="Plinkopolis game scene" data-action="Play Plinkopolis" data-url="https://plinkopolis.buggycode.ca"><span class="cart-cap"><span class="lcd">GAME CARD</span><span class="cart-dot"></span></span><span class="cart-art"><img src="/carts/plnk-02.jpg" alt=""><span class="cart-art-shade"></span><span class="cart-label"><strong>Plinkopolis</strong><small class="lcd">PLNK—02 · ARCADE</small></span></span><span class="cart-base"><span class="cart-grip"></span><span class="cart-teeth" aria-hidden="true">▥</span></span></button><p class="cart-caption lcd">PLINKOPOLIS · PLAYABLE</p><p class="cart-hint">Select to load</p></article>
+<article class="cart-unit"><button class="cartridge" type="button" data-code="QT—03" data-title="Qtronic" data-status="IN DEVELOPMENT" data-tagline="Every library, one window." data-description="A desktop music player for local files, YouTube Music, and Spotify. One queue, whichever of the three a track happens to live in." data-screen="/carts/qt-03.jpg" data-screen-alt="Qtronic music player interface" data-action="Read about Qtronic" data-url="/qtronic"><span class="cart-cap"><span class="lcd">PROJECT CARD</span><span class="cart-dot"></span></span><span class="cart-art"><img src="/carts/qt-03.jpg" alt=""><span class="cart-art-shade"></span><span class="cart-label"><strong>Qtronic</strong><small class="lcd">QT—03 · DESKTOP</small></span></span><span class="cart-base"><span class="cart-grip"></span><span class="cart-teeth" aria-hidden="true">▥</span></span></button><p class="cart-caption lcd">QTRONIC · IN PROGRESS</p><p class="cart-hint">Select to load</p></article>
+</div>
+</section>
 
-    <main id="main">
-        <Hero />
-        <CartridgeShelf />
-        <About />
-        <Contact />
-    </main>
+<section class="device-section wrap" id="device" aria-label="Cartridge player"><div class="handheld atari-console is-off" id="handheld"><div class="console-top"><span class="lcd console-wordmark">VIDEO GAME SYSTEM</span><span class="lcd console-model">2600 STYLE</span></div><div class="wood-bezel"><div class="console-board"><div class="screen-bezel"><div class="screen" id="screen"><div class="screen-picture" id="screen-picture"><div class="screen-idle"><span class="lcd">INSERT CARTRIDGE</span></div><img id="screen-image" src="/carts/nb-01.png" alt="" hidden><span class="channel-osd" id="channel-osd" aria-hidden="true">CH 3</span></div><span class="crt-flash" aria-hidden="true"></span></div><div class="screen-status lcd"><span id="screen-code">NO CART</span><span id="screen-state">POWER OFF</span></div></div><div class="console-side"><div class="screen-copy" id="screen-copy" aria-live="polite" hidden><strong class="lcd" id="screen-title"></strong><p id="screen-description"></p></div><a id="device-action" class="device-action" href="#projects" hidden><span class="device-action-icon" aria-hidden="true"><svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="read-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-2.2-2-5-2.3-8-1.2v12c3-1.1 5.8-.8 8 1.2 2.2-2 5-2.3 8-1.2v-12c-3-1.1-5.8-.8-8 1.2Z"/><path d="M12 7v12"/></svg></span><span class="device-action-label">Choose a project</span><span class="device-action-arrow" aria-hidden="true">→</span></a><div class="switch-bank" aria-label="Console switches"><div class="switch-unit"><button id="console-power" class="metal-switch" type="button" aria-label="Console power" aria-pressed="false"><span class="metal-lever"></span></button><span class="lcd">POWER</span></div><div class="switch-unit"><button id="console-mode" class="metal-switch" type="button" aria-label="Switch between color and black and white" aria-pressed="false"><span class="metal-lever"></span></button><span class="lcd" id="console-mode-label">COLOR</span></div><div class="switch-unit"><button id="console-reset" class="metal-switch reset-switch" type="button" aria-label="Reset cartridge"><span class="reset-cap"></span></button><span class="lcd">RESET</span></div></div></div></div></div></div></section>
 
-    <footer class="foot">
-        <div class="wrap foot-inner">
-            <p class="lcd">{site.domain}</p>
-            <p class="lcd foot-note">Bugs are loose on this page. Swat them, or switch them off up top.</p>
-        </div>
-    </footer>
-</Base>
+<section class="about-section wrap" id="about"><div><p class="eyebrow lcd">The personal bit</p><h2>Why these<br>projects.</h2></div><div class="about-copy"><p>I wanted to make simple puzzle and arcade games my two daughters could play on their tablets or my retro handhelds. I spend more time tinkering with the handhelds than playing games on them, so it’s nice when the kids get to enjoy the games.</p><p>After seeing tablet games ask for money as soon as my daughters finish the first level, I made them a candy-themed kart racer. That held their attention for a day, which is a high compliment, I think. Next up might be another game they like—or something to help my six-year-old with reading.</p><dl><div><dt>Based in</dt><dd>Mississauga, Ontario</dd></div><div><dt>Makes</dt><dd>Games &amp; tools</dd></div><div><dt>What's next?</dt><dd>A nap</dd></div></dl></div></section>
 
-<style>
-    .skip {
-        position: absolute;
-        top: -100px;
-        left: var(--s2);
-        z-index: 100;
-        padding: 10px var(--s2);
-        background: var(--ink);
-        color: var(--ground);
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: var(--r1);
-        transition: top 0.15s var(--ease-out);
-    }
-
-    .skip:focus {
-        top: var(--s2);
-    }
-
-    .foot {
-        border-top: 1px solid var(--edge);
-        padding-block: var(--s3);
-    }
-
-    .foot-inner {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--s2);
-        align-items: baseline;
-        justify-content: space-between;
-        color: var(--ink-faint);
-    }
-
-    .foot-note {
-        max-width: 40ch;
-    }
-</style>
+<section class="contact-section wrap" id="contact"><p class="eyebrow lcd">Contact</p><h2>Found a bug?</h2><p>Want to talk about the games, a loose bug, or my car’s extended warranty?</p><a href="mailto:dan@buggycode.ca" class="contact-link">dan@buggycode.ca <span>↗</span></a></section>
+</main>
+<script type="module" src="/atari/arcade.js"></script>
+</body></html>
