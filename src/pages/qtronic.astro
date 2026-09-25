@@ -1,8 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
-import BugField from '../components/BugField.astro';
-import ConsoleFrame from '../components/ConsoleFrame.astro';
-
 const tech = ['Qt', 'C++', 'Desktop'];
 
 const modes = [
@@ -91,14 +87,29 @@ const facts = [
 ];
 ---
 
-<Base
-    title="Qtronic — every library, one window | buggycode"
-    description="Qtronic is a desktop music player that plays your local files, YouTube Music and your Spotify Premium account out of one queue — with a MilkDrop visualiser and 22 built-in themes."
->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Qtronic is a desktop music player for local files, YouTube Music and Spotify, with a MilkDrop visualiser and 22 built-in themes." />
+    <meta name="theme-color" content="#17130f" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/atari/styles.css" />
+    <link rel="stylesheet" href="/atari/qtronic.css" />
+    <title>Qtronic — Every library, one window | buggycode</title>
+</head>
+<body>
     <a class="skip" href="#main">Skip to content</a>
-
-    <BugField />
-    <ConsoleFrame homeHref="/" />
+    <div class="bug-field" id="bug-field" aria-hidden="true" hidden></div>
+    <header class="topbar">
+        <a class="brand" href="/"><span class="brand-mark">✳</span> buggycode</a>
+        <nav aria-label="Main navigation"><a href="/#projects">Projects</a><a href="/#about">About</a></nav>
+        <div class="top-actions">
+            <p class="score lcd"><span>Squashed</span><strong id="squash-count">000</strong></p>
+            <button id="bug-toggle" class="bug-toggle" type="button" aria-pressed="false"><span class="toggle-mark" aria-hidden="true">▶</span><span>Bug hunt</span></button>
+        </div>
+    </header>
 
     <main id="main" class="article wrap">
         <p class="crumb">
@@ -247,354 +258,12 @@ const facts = [
         </p>
     </main>
 
-    <footer class="foot">
-        <div class="wrap foot-inner">
-            <p class="lcd">buggycode.ca</p>
-            <p class="lcd foot-note">Qtronic is in development. The project page grows as it does.</p>
+    <footer class="q-footer">
+        <div class="wrap q-footer-inner">
+            <a class="lcd" href="/#projects">← Back to projects</a>
+            <span class="lcd">Qtronic is in development</span>
         </div>
     </footer>
-</Base>
-
-<style>
-    .skip {
-        position: absolute;
-        top: -100px;
-        left: var(--s2);
-        z-index: 100;
-        padding: 10px var(--s2);
-        background: var(--ink);
-        color: var(--ground);
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: var(--r1);
-    }
-
-    .skip:focus {
-        top: var(--s2);
-    }
-
-    .article {
-        padding-block: var(--s3) var(--s5);
-    }
-
-    /* ---------------------------------------------------------------- crumb */
-
-    .crumb {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--ink-faint);
-    }
-
-    .crumb a {
-        color: var(--ink-dim);
-        text-decoration: none;
-    }
-
-    .crumb a:hover {
-        color: var(--ink);
-    }
-
-    /* ----------------------------------------------------------------- head */
-
-    .head {
-        margin-top: var(--s3);
-        margin-bottom: var(--s4);
-    }
-
-    .eyebrow {
-        color: var(--gold);
-    }
-
-    .title {
-        margin-top: var(--s1);
-        font-size: clamp(2.5rem, 1.5rem + 4vw, 4rem);
-    }
-
-    .tagline {
-        margin-top: var(--s1);
-        color: var(--gold);
-        font-size: 1.25rem;
-        font-weight: 500;
-    }
-
-    .lede {
-        max-width: var(--measure);
-        margin-top: var(--s2);
-        color: var(--ink-dim);
-        font-size: 1.0625rem;
-    }
-
-    .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--s1);
-        margin-top: var(--s3);
-    }
-
-    .chip {
-        padding: 3px 8px;
-        border: 1px solid var(--edge);
-        border-radius: var(--r1);
-        color: var(--ink-faint);
-    }
-
-    /* --------------------------------------------------------------- frames */
-
-    .frame {
-        display: grid;
-        place-items: center;
-        padding: 6px;
-        background: #050609;
-        border: 1px solid var(--edge);
-        border-radius: var(--r2);
-        box-shadow: inset 0 3px 18px rgba(0, 0, 0, 0.9);
-        overflow: hidden;
-    }
-
-    .frame img {
-        width: 100%;
-        height: auto;
-        border-radius: var(--r1);
-    }
-
-    .shot {
-        margin: 0;
-    }
-
-    .shot + .shot {
-        margin-top: var(--s4);
-    }
-
-    .shot figcaption,
-    .mode figcaption {
-        max-width: var(--measure);
-        margin-top: var(--s2);
-        color: var(--ink-faint);
-        font-size: 0.9375rem;
-    }
-
-    /* --------------------------------------------------------------- blocks */
-
-    .block {
-        margin-top: var(--s5);
-    }
-
-    .block-lede {
-        max-width: var(--measure);
-        margin-bottom: var(--s3);
-        color: var(--ink-dim);
-    }
-
-    /* ---------------------------------------------------------------- modes */
-
-    .modes {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--s4);
-    }
-
-    @media (min-width: 860px) {
-        .modes {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: var(--s3);
-            align-items: start;
-        }
-    }
-
-    .mode {
-        margin: 0;
-    }
-
-    /* The mode captures are 2x (the app runs at devicePixelRatio 2), so their
-       width/height attributes carry the logical size, the file is declared 2x,
-       and the frame is capped at that logical width (--mode-w, set inline from
-       the same value) rather than being filled out to the column. Letting the
-       frame take the column is what made mini mode read as zoomed in - a
-       352px window stretched to 650. */
-    .frame--mode {
-        width: fit-content;
-        max-width: min(100%, var(--mode-w));
-    }
-
-    .frame--mode img {
-        width: auto;
-        max-width: 100%;
-    }
-
-    .mode-label {
-        display: block;
-        color: var(--gold);
-        margin-bottom: 4px;
-    }
-
-    /* ---------------------------------------------------------------- split */
-
-    .split {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--s3);
-        align-items: center;
-    }
-
-    @media (min-width: 900px) {
-        .split {
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-            gap: var(--s4);
-        }
-    }
-
-    .split-title {
-        font-size: 1.5rem;
-        margin-bottom: var(--s1);
-    }
-
-    .split-body {
-        max-width: 46ch;
-        color: var(--ink-dim);
-    }
-
-    .mono {
-        font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
-        font-size: 0.9em;
-        color: var(--ink);
-    }
-
-    /* --------------------------------------------------------------- themes */
-
-    .themes {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--s2);
-    }
-
-    @media (min-width: 620px) {
-        .themes {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (min-width: 1000px) {
-        .themes {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    .theme {
-        margin: 0;
-    }
-
-    .frame--theme {
-        padding: 0;
-    }
-
-    .frame--theme img {
-        border-radius: 0;
-    }
-
-    /* ---------------------------------------------------------------- story */
-
-    .story {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--s4);
-    }
-
-    @media (min-width: 900px) {
-        .story {
-            grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-            gap: var(--s5);
-            align-items: start;
-        }
-    }
-
-    .story-copy p {
-        max-width: var(--measure);
-        color: var(--ink-dim);
-    }
-
-    .story-copy p + p {
-        margin-top: var(--s2);
-    }
-
-    .facts {
-        margin: 0;
-        border-top: 1px solid var(--edge);
-    }
-
-    .fact {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: var(--s2);
-        padding-block: 10px;
-        border-bottom: 1px solid var(--edge);
-    }
-
-    .fact-label {
-        color: var(--ink-faint);
-    }
-
-    .fact-value {
-        margin: 0;
-        color: var(--ink);
-        font-weight: 500;
-        text-align: right;
-    }
-
-    /* ----------------------------------------------------------------- back */
-
-    .back {
-        margin-top: var(--s5);
-    }
-
-    .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        min-height: 48px;
-        padding: 0 var(--s3);
-        border: 1px solid var(--ink-faint);
-        border-radius: var(--r2);
-        color: var(--ink);
-        font-weight: 600;
-        text-decoration: none;
-        transition:
-            border-color 0.2s var(--ease-out),
-            background-color 0.2s var(--ease-out);
-    }
-
-    .cta::before {
-        content: '';
-        width: 7px;
-        height: 7px;
-        border-left: 2px solid currentColor;
-        border-bottom: 2px solid currentColor;
-        transform: rotate(45deg) translate(1px, -1px);
-    }
-
-    .cta:hover {
-        border-color: var(--ink);
-        background: var(--shell);
-    }
-
-    /* --------------------------------------------------------------- footer */
-
-    .foot {
-        border-top: 1px solid var(--edge);
-        padding-block: var(--s3);
-    }
-
-    .foot-inner {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--s2);
-        align-items: baseline;
-        justify-content: space-between;
-        color: var(--ink-faint);
-    }
-
-    .foot-note {
-        max-width: 40ch;
-    }
-</style>
+    <script type="module" src="/atari/arcade.js"></script>
+</body>
+</html>
